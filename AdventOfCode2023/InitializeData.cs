@@ -12,6 +12,8 @@ namespace AdventOfCode2023
         }
         public static ResultEnum[] CreateFilesSingleDay(byte day)
         {
+            var path = Adventure.BuildFileDirectory(day);
+            FileHelper.EnusureDirectoryExists(path);
 
             var files = new List<string>()
             {
