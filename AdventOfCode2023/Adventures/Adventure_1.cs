@@ -80,23 +80,79 @@
             }).ToList();
         }
 
-
         private int ParseLineAdvanced(string line)
+        {
+            //return ParseLineAdvancedAlt(line);
+
+            var first = ParseLineAdvancedSingle(line, false);
+            var last = ParseLineAdvancedSingle(line, true);
+
+            return (first.HasValue && last.HasValue) ? (first.Value * 10 + last.Value) : -1;
+
+        }
+
+        private List<string> _digitLookup = new List<string>() { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
+        private int? ParseLineAdvancedSingle(string line, bool reverse)
+        {
+            int? value = null;
+
+            var index = reverse ? line.Length - 1 : 0;
+            var delta = reverse ? -1 : 1;
+
+            while (!value.HasValue && index >= 0 && index < line.Length)
+            {
+                var current = line.Substring(index);
+
+                if (int.TryParse(current[0].ToString(), out int v))
+                {
+                    value = v;
+                }
+                else
+                {
+                    //check for spelled out digit
+                    for (var i = 0; i < _digitLookup.Count && !value.HasValue; i++)
+                    {
+                        if (current.StartsWith(_digitLookup[i]))
+                        {
+                            value = i;
+                        }
+                    }
+                }
+
+                index += delta;
+            }
+
+            return value;
+        }
+
+        private int ParseLineAdvancedAlt(string line)
         {
             int? first = null;
             int? last = null;
             for (int i = 0; i < line.Length; i++)
             {
-                char c = line[i];
+                var current = line.Substring(i);
+                char c = current[0];
                 if (int.TryParse(c.ToString(), out var result))
                 {
                     if (!first.HasValue) { first = result; }
                     last = result;
+                } 
+                else
+                {
+                    var digit = _digitLookup.FirstOrDefault(m => current.StartsWith(m));
+                    if (digit != null)
+                    {
+                        var value = _digitLookup.IndexOf(digit);
+                        if (!first.HasValue) { first = value; }
+                        last = value;
+                    }
                 }
             }
 
             return (first.HasValue && last.HasValue) ? (first.Value * 10 + last.Value) : -1;
         }
+
 
         #endregion
 
