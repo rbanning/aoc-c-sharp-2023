@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <Title>Hallpass Advent of Code</Title>
+    <Authors>rbanning</Authors>
+    <Company>Hallpass and Friends</Company>
+    <Copyright>2023 Hallpass and Friends</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Update="Adventures\Data\data-01-a.txt">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="postbuild.bat">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="call $(ProjectDir)postbuild.bat $(OutDir)" />
+  </Target>
+
+</Project>
