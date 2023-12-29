@@ -13,11 +13,14 @@
         public static void Header(string text)
         {
             text = Center(text);
+            var date = Center(DateTime.Now.ToShortTimeString());
             Console.BackgroundColor = ConsoleColor.Red;
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine(string.Join("",Enumerable.Repeat("-", Width).ToArray()));
             Console.BackgroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine(text);
+            Console.ForegroundColor= ConsoleColor.Green;
+            Console.WriteLine(date);
             Console.BackgroundColor = ConsoleColor.Red;
             Console.WriteLine(string.Join("", Enumerable.Repeat("-", Width).ToArray()));
 

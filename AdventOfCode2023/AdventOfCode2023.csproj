@@ -12,7 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Update="Adventures\Data\data-01-a.txt">
+    <None Update="Adventures\Data\01\data-01-a.txt">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Update="postbuild.bat">

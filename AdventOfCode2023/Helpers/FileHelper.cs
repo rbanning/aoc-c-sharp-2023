@@ -23,6 +23,16 @@
             return System.IO.File.ReadAllText(path);
         }
 
+        public static bool EnusureDirectoryExists(string path)
+        {
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+
+            return Directory.Exists(path);
+        }
+
         public static string CurrentDirectory()
         {
             return Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) ?? "";

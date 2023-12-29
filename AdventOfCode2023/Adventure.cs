@@ -6,14 +6,23 @@ namespace AdventOfCode2023
     {
         public static readonly string Directory = Path.Combine("Adventures", "data");
 
-        public static string BuildFileName(byte day, AdventureSection section, AdventureSource source)
+        static string DayToString(byte day)
         {
-            return string.Concat("data-", day.ToString().PadLeft(2,'0'), "-", section, source == AdventureSource.sample ? "-sample" : "", ".txt");
+            return day.ToString().PadLeft(2, '0');
         }
 
+        public static string BuildFileName(byte day, AdventureSection section, AdventureSource source)
+        {
+            return string.Concat("data-", DayToString(day), "-", section, source == AdventureSource.sample ? "-sample" : "", ".txt");
+        }
+
+        public static string BuildFileDirectory(byte day)
+        {
+            return System.IO.Path.Combine(FileHelper.CurrentDirectory(), Directory, DayToString(day));
+        }
         public static string BuildFilePath(byte day, AdventureSection section, AdventureSource source)
         {
-            return System.IO.Path.Combine(FileHelper.CurrentDirectory(), Directory, BuildFileName(day, section, source));
+            return System.IO.Path.Combine(BuildFileDirectory(day), BuildFileName(day, section, source));
         }
 
     }
